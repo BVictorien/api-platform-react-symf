@@ -6,7 +6,7 @@ function findAll() {
     .then(response => (response.data["hydra:member"]));
 }
 function find(id){
-  axios
+  return axios
         .get("https://127.0.0.1:8000/api/customers/" + id)
         .then(response => response.data);
 }
