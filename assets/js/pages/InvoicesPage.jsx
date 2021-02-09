@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 import InvoicesAPI from '../services/invoicesAPI';
 
@@ -80,7 +81,12 @@ const InvoicesPage = props => {
 
   return ( 
     <>
+    <div className="d-flex justify-content-between align-items-center">
       <h1>Liste des factures</h1>
+      <Link className="btn btn-primary" to="/invoices/new">
+        Créer une facture
+      </Link>
+    </div>
 
       <div className="form-group">
         <input type="text" onChange={handleSearch} value={search} className="form-control" placeholder="Rechercher ..."/>
@@ -101,7 +107,7 @@ const InvoicesPage = props => {
           {paginatedInvoices.map(invoice => <tr key={invoice.id}>
             <td>{invoice.chrono}</td>
             <td>
-              <a href="#">{invoice.customer.firstName}{invoice.customer.lastName}</a>
+              <a href="#">{invoice.customer.firstName} {invoice.customer.lastName}</a>
             </td>
             <td className="text-center">{formatDate(invoice.sentAt)}</td>
             <td className="text-center">
@@ -109,7 +115,7 @@ const InvoicesPage = props => {
             </td>
             <td className="text-center">{invoice.amount.toLocaleString()} €</td>
             <td>
-              <button className="btn btn-sm btn-primary mr-1">Editer</button>
+              <Link to={"/invoices/" + invoice.id} className="btn btn-sm btn-primary mr-1">Editer</Link>
               <button 
               className="btn btn-sm btn-danger"
               onClick={() => handleDelete(invoice.id)}
